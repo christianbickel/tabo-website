@@ -5,19 +5,19 @@ const services = [
     icon: TrendingUp,
     title: 'Beteiligungen',
     description:
-      'Strategische Investments in zukunftsweisende Unternehmen und Technologien. Wir identifizieren Potenziale und schaffen nachhaltige Werte.',
+      'Wir reden nicht nur, sondern investieren auch selbst in interessante Projekte. Dabei geht es uns nicht um den kurzfristigen Gewinn, sondern um die Schaffung von nachhaltigen Werten und erfolgreichen Unternehmen.',
   },
   {
     icon: Lightbulb,
     title: 'Beratung',
     description:
-      'Massgeschneiderte Beratung für Unternehmen, die Klarheit in komplexen Situationen suchen. Von der Strategie bis zur Umsetzung.',
+      'Mit über 30 Jahren Erfahrung in der Software-Branche bieten wir massgeschneiderte Beratung, die Klarheit in komplexen Situationen schafft. Von der Idee zur Strategie und bis zur erfolgreichen Vermarktung.',
   },
   {
     icon: Code2,
     title: 'Software-Entwicklung',
     description:
-      'Moderne, skalierbare Softwarelösungen — von der Konzeption bis zum Go-Live. Technologie, die Ihrem Geschäft einen Vorsprung gibt.',
+      'Moderne, skalierbare Softwareentwicklung mit KI-Unterstützung - von der Konzeption, dem Design bis zum Go-Live. Wir verfügen über das Know-How und die Technologie, die Ihrem Projekt einen Vorsprung verschafft.',
   },
 ]
 

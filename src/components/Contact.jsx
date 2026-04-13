@@ -1,4 +1,4 @@
-import { MapPin, Mail, Send } from 'lucide-react'
+import { MapPin, Mail, Phone, Send } from 'lucide-react'
 
 export default function Contact() {
   return (
@@ -7,9 +7,12 @@ export default function Contact() {
         <p className="text-sm font-medium tracking-widest uppercase text-charcoal/40 mb-4">
           Kontakt
         </p>
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-charcoal mb-16">
-          Sprechen wir darüber
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-charcoal mb-4">
+          30+ Jahre Erfahrung in der Software-Branche.
         </h2>
+        <p className="text-lg text-charcoal/60 mb-16 max-w-2xl">
+          Lassen Sie uns darüber sprechen, wie wir Ihr Projekt unterstützen können.
+        </p>
 
         <div className="grid md:grid-cols-2 gap-16">
           {/* Form */}
@@ -80,6 +83,21 @@ export default function Contact() {
                   <br />
                   Liechtenstein
                 </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                <Phone size={20} className="text-accent" />
+              </div>
+              <div>
+                <p className="font-medium text-charcoal">Telefon</p>
+                <a
+                  href="tel:+436605280444"
+                  className="text-accent hover:text-accent-hover transition-colors mt-1 block"
+                >
+                  +43 660 5280444
+                </a>
               </div>
             </div>
 

@@ -13,7 +13,7 @@ const projects = [
     name: 'GlessHub',
     url: 'https://www.glesshub.at',
     logo: '/logos/glesshub.png',
-    logoBg: 'bg-white',
+    logoBg: 'bg-[#30501D]',
     description:
       'Coworking-Space in Lustenau, Vorarlberg — flexible Arbeitsplätze, private Büros, Seminar- und Meetingräume mit einer aktiven Community.',
   },
@@ -53,7 +53,7 @@ export default function Projects() {
                   <img
                     src={logo}
                     alt={name}
-                    className="max-h-12 max-w-[160px] object-contain"
+                    className="max-h-10 max-w-[200px] object-contain"
                   />
                 ) : (
                   <span className="text-2xl font-bold text-white tracking-tight">
