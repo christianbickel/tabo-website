@@ -7,7 +7,7 @@ const projects = [
     logo: '/logos/consolidate.svg',
     logoBg: 'bg-charcoal',
     description:
-      'Software-Plattform, die Kommunikation, Projekte, CRM, Dokumente und Kalender in einer zentralen, KI-unterstützten Lösung für mittlere Unternehmen vereint.',
+      'Software-Plattform, die Kommunikation, Projekte, CRM, Dokumente und Kalender in einer zentralen, KI-unterstützten Lösung für den Mittelstand vereint.',
   },
   {
     name: 'GlessHub',
