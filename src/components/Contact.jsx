@@ -1,6 +1,49 @@
+import { useState } from 'react'
 import { MapPin, Mail, Phone, Send } from 'lucide-react'
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
+  const [submitState, setSubmitState] = useState('idle')
+  const [feedback, setFeedback] = useState('')
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    setSubmitState('submitting')
+    setFeedback('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data?.error || 'Senden fehlgeschlagen.')
+      }
+
+      setSubmitState('success')
+      setFeedback('Nachricht erfolgreich gesendet. Wir melden uns zeitnah.')
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      setSubmitState('error')
+      setFeedback(error.message || 'Senden fehlgeschlagen. Bitte erneut versuchen.')
+    }
+  }
+
   return (
     <section id="contact" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
@@ -16,18 +59,18 @@ export default function Contact() {
 
         <div className="grid md:grid-cols-2 gap-16">
           {/* Form */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col gap-5"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-charcoal/70 mb-1.5">
                 Name
               </label>
               <input
                 id="name"
+                name="name"
                 type="text"
                 required
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition"
                 placeholder="Ihr Name"
               />
@@ -39,8 +82,11 @@ export default function Contact() {
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition"
                 placeholder="ihre@email.com"
               />
@@ -52,8 +98,11 @@ export default function Contact() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
                 required
+                value={formData.message}
+                onChange={handleChange}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition resize-none"
                 placeholder="Wie können wir Ihnen helfen?"
               />
@@ -61,11 +110,22 @@ export default function Contact() {
 
             <button
               type="submit"
+              disabled={submitState === 'submitting'}
               className="inline-flex items-center justify-center gap-2 bg-charcoal text-white font-medium px-6 py-3 rounded-xl hover:bg-charcoal-light transition-colors w-fit cursor-pointer"
             >
-              Senden
+              {submitState === 'submitting' ? 'Sende...' : 'Senden'}
               <Send size={16} />
             </button>
+
+            {feedback && (
+              <p
+                className={`text-sm ${
+                  submitState === 'success' ? 'text-green-700' : 'text-red-700'
+                }`}
+              >
+                {feedback}
+              </p>
+            )}
           </form>
 
           {/* Address */}
