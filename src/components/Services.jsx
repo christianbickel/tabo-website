@@ -33,19 +33,19 @@ export default function Services() {
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map(({ icon: Icon, title, description }) => (
+          {services.map((service) => (
             <div
-              key={title}
+              key={service.title}
               className="bg-white rounded-2xl p-8 md:p-10 border border-gray-100 hover:border-gray-200 transition-colors"
             >
               <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
-                <Icon size={24} className="text-accent" />
+                <service.icon size={24} className="text-accent" />
               </div>
               <h3 className="text-lg font-semibold text-charcoal mb-3">
-                {title}
+                {service.title}
               </h3>
               <p className="text-charcoal/60 leading-relaxed">
-                {description}
+                {service.description}
               </p>
             </div>
           ))}

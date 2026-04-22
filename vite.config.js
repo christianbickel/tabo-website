@@ -1,11 +1,28 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
 function contactApiPlugin(mode) {
   const env = loadEnv(mode, process.cwd(), '')
-  const resendApiKey = env.RESEND_API_KEY || env.VITE_RESEND_API_KEY || process.env.RESEND_API_KEY
+  const smtpHost = env.SMTP_HOST || process.env.SMTP_HOST
+  const smtpPort = Number(env.SMTP_PORT || process.env.SMTP_PORT || 587)
+  const smtpUser = env.SMTP_USER || process.env.SMTP_USER
+  const smtpPass = env.SMTP_PASS || process.env.SMTP_PASS || env.SMTP_PASSWORD || process.env.SMTP_PASSWORD
+  const smtpSecure = (env.SMTP_SECURE || process.env.SMTP_SECURE || `${smtpPort === 465}`) === 'true'
+  const smtpFrom = env.SMTP_FROM || process.env.SMTP_FROM || smtpUser
+
+  const transporter = smtpHost && smtpUser && smtpPass
+    ? nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpSecure,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      })
+    : null
 
   return {
     name: 'contact-api',
@@ -18,10 +35,10 @@ function contactApiPlugin(mode) {
           return
         }
 
-        if (!resendApiKey) {
+        if (!transporter || !smtpFrom) {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
-          res.end(JSON.stringify({ error: 'RESEND_API_KEY ist nicht gesetzt.' }))
+          res.end(JSON.stringify({ error: 'SMTP Konfiguration ist unvollstaendig.' }))
           return
         }
 
@@ -41,10 +58,9 @@ function contactApiPlugin(mode) {
               return
             }
 
-            const resend = new Resend(resendApiKey)
-            await resend.emails.send({
-              from: 'Website Kontakt <onboarding@resend.dev>',
-              to: ['christian@tabo.li'],
+            await transporter.sendMail({
+              from: smtpFrom,
+              to: 'christian@tabo.li',
               replyTo: email,
               subject: `Neue Website-Anfrage von ${name}`,
               text: `Name: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,

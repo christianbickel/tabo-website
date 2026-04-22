@@ -28,6 +28,11 @@ const projects = [
 ]
 
 export default function Projects() {
+  const openInNewTab = (event, url) => {
+    event.preventDefault()
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <section id="about" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-6">
@@ -45,6 +50,7 @@ export default function Projects() {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(event) => openInNewTab(event, url)}
               className="group bg-white rounded-2xl border border-gray-100 hover:border-gray-200 transition-all hover:shadow-lg overflow-hidden flex flex-col"
             >
               {/* Logo area */}

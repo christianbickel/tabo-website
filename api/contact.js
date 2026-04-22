@@ -1,15 +1,31 @@
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
-const resendApiKey = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY
-const resend = resendApiKey ? new Resend(resendApiKey) : null
+const smtpHost = process.env.SMTP_HOST
+const smtpPort = Number(process.env.SMTP_PORT || 587)
+const smtpUser = process.env.SMTP_USER
+const smtpPass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD
+const smtpSecure = (process.env.SMTP_SECURE || `${smtpPort === 465}`) === 'true'
+const smtpFrom = process.env.SMTP_FROM || smtpUser
+
+const transporter = smtpHost && smtpUser && smtpPass
+  ? nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    })
+  : null
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed.' })
   }
 
-  if (!resend) {
-    return res.status(500).json({ error: 'RESEND_API_KEY ist nicht gesetzt.' })
+  if (!transporter || !smtpFrom) {
+    return res.status(500).json({ error: 'SMTP Konfiguration ist unvollstaendig.' })
   }
 
   const { name, email, message } = req.body || {}
@@ -19,9 +35,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    await resend.emails.send({
-      from: 'Website Kontakt <onboarding@resend.dev>',
-      to: ['christian@tabo.li'],
+    await transporter.sendMail({
+      from: smtpFrom,
+      to: 'christian@tabo.li',
       replyTo: email,
       subject: `Neue Website-Anfrage von ${name}`,
       text: `Name: ${name}\nE-Mail: ${email}\n\nNachricht:\n${message}`,

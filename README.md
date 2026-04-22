@@ -15,10 +15,16 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-## Kontaktformular mit Resend
+## Kontaktformular mit SMTP
 
 1. Lege eine `.env.local` im Projektroot an (siehe `.env.local.example`).
-2. Setze `RESEND_API_KEY=<dein_resend_key>`.
+2. Setze deine SMTP-Daten:
+   - `SMTP_HOST`
+   - `SMTP_PORT`
+   - `SMTP_USER`
+   - `SMTP_PASS` (oder `SMTP_PASSWORD`)
+   - optional `SMTP_SECURE` (`true` fuer SSL/465, sonst `false`)
+   - optional `SMTP_FROM` (z. B. `Tabo Website <mailer@example.com>`)
 3. Starte den Dev-Server neu, damit die Umgebungsvariable geladen wird.
 
 Das Formular sendet dann an `christian@tabo.li` via `POST /api/contact`.
