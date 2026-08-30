@@ -25,6 +25,14 @@ const projects = [
     description:
       'Plattform für die Catering-Branche, die es ermöglicht, Personal und Events in Minuten zu organisieren — automatisierte Personalplanung statt WhatsApp-Chaos.',
   },
+  {
+    name: 'BookForm',
+    url: 'https://bookform.eu',
+    logo: null,
+    logoBg: 'bg-[#111827]',
+    description:
+      'Online-Formulare und Terminbuchung für Websites — ohne Code, einbettbar als iFrame oder Link, inklusive Kalender-Anbindung und mehrsprachiger Oberfläche.',
+  },
 ]
 
 export default function Projects() {
@@ -43,7 +51,7 @@ export default function Projects() {
           Aktuelle Projekte & Beteiligungen
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
           {projects.map(({ name, url, logo, logoBg, description }) => (
             <a
               key={name}
