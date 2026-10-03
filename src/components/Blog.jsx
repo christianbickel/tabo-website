@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import { posts } from '../blog/posts'
 
-const defaultTitle = 'Tabo GmbH – Beteiligungen, Beratung & Software'
+const defaultTitle = 'Tabo GmbH – Beratung, Beteiligungen & Software'
 
 export function BlogLayout({ children }) {
   return (

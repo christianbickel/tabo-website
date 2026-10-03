@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react'
 import { BlogLayout } from './Blog'
 import { getPost } from '../blog/posts'
 
-const defaultTitle = 'Tabo GmbH – Beteiligungen, Beratung & Software'
+const defaultTitle = 'Tabo GmbH – Beratung, Beteiligungen & Software'
 
 function ArticleBody({ blocks }) {
   return (
