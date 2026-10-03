@@ -4,8 +4,17 @@ import { Menu, X } from 'lucide-react'
 const navLinks = [
   { href: '#services', label: 'Services' },
   { href: '#about', label: 'Über uns' },
+  { href: '#blog', label: 'Blog' },
   { href: '#contact', label: 'Kontakt' },
 ]
+
+function isActive(href) {
+  const hash = window.location.hash
+  if (href === '#blog') {
+    return hash === '#blog' || hash.startsWith('#blog/')
+  }
+  return hash === href
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -23,7 +32,10 @@ export default function Navbar() {
             <li key={href}>
               <a
                 href={href}
-                className="text-sm font-medium text-charcoal/70 hover:text-charcoal transition-colors"
+                aria-current={isActive(href) ? 'page' : undefined}
+                className={`text-sm font-medium transition-colors hover:text-charcoal ${
+                  isActive(href) ? 'text-charcoal' : 'text-charcoal/70'
+                }`}
               >
                 {label}
               </a>
@@ -50,7 +62,10 @@ export default function Navbar() {
                 <a
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-charcoal/70 hover:text-charcoal transition-colors"
+                  aria-current={isActive(href) ? 'page' : undefined}
+                  className={`text-sm font-medium transition-colors hover:text-charcoal ${
+                    isActive(href) ? 'text-charcoal' : 'text-charcoal/70'
+                  }`}
                 >
                   {label}
                 </a>
